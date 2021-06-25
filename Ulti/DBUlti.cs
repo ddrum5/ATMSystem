@@ -16,6 +16,7 @@ namespace WinFormsApp1 {
             conn = new SqlConnection(cs);
             if (conn.State != ConnectionState.Open)
                 conn.Open();
+           
         }
         
        

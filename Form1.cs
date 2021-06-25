@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 using WinFormsApp1.Ulti;
-using System.Data.SqlClient;
 using MetroSet_UI.Forms;
 
 namespace WinFormsApp1 {
@@ -21,7 +13,8 @@ namespace WinFormsApp1 {
 
         public formDangNhap() {
             InitializeComponent();
-            
+
+         
         }
 
        
@@ -34,7 +27,7 @@ namespace WinFormsApp1 {
             inpSoThe.Text = "69999";
             inpPIN.Text = "123";
             cbTenNganHang.SelectedIndex = new The().danhSachMaNganHang().IndexOf("TPB");
-
+            
 
         }
 
@@ -55,6 +48,23 @@ namespace WinFormsApp1 {
                 Program.ShowMsg("Sai ma");
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void btnThoat_Click(object sender, EventArgs e) {
             Close();

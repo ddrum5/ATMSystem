@@ -5,6 +5,8 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Text;
 using WinFormsApp1.Ulti;
+
+
 namespace WinFormsApp1 {
 
     class The:DBUlti {
@@ -222,8 +224,26 @@ namespace WinFormsApp1 {
                     }
                 }
             }
+
             return list;
         }
+        public List<NganHang> listNganHang() {
+            List<NganHang> list = new List<NganHang>();
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                string sql = "SELECT ID_NH FROM NGANHANG";
+                cmd.CommandText = sql;
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    if (reader != null) {
+                        while (reader.Read()) {
+                            string s = reader.GetString(0);
+                       
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
 
         public List<String> danhSachGiaoDich() {
             List<String> list = new List<string>();
