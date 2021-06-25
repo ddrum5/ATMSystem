@@ -62,7 +62,9 @@ namespace WinFormsApp1.Ulti {
 			label1.Dispose();
 			return maxWidth;
 		}
-
+		public static String getCurrentTime() {
+			return DateTime.Now.ToString("HH:mm:ss tt, dd/MM/yyyy");
+		}
 	}
 
 }

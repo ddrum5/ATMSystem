@@ -23,6 +23,7 @@ namespace WinFormsApp1 {
         }
 
         private void MainUI_Load(object sender, EventArgs e) {
+
             the = new The(soThe, maNganhang);
             initThongTin();
             initRutTien();
@@ -34,16 +35,12 @@ namespace WinFormsApp1 {
         private void initChuyenTien() {
             cb_ChuyenTien_ChonTaiKhoanNguon.DataSource = the.getListSoTaiKhoan;
             cb_ChuyenTien_ChonTaiKhoanNguon.DropDownWidth = Tool.DropDownWidth(cb_ChuyenTien_ChonTaiKhoanNguon);
+
             cb_ChuyenTien_ChonTenNganHang.DataSource = the.danhSachTenNganHang();
             cb_ChuyenTien_ChonTenNganHang.DropDownWidth = Tool.DropDownWidth(cb_ChuyenTien_ChonTenNganHang);
-            cb_ChuyenTien_ChonTenNganHang.SelectedText = "---Chọn ngân hàng---";
-            cb_ChuyenTien_ChonTaiKhoanNguon.SelectedText = "---Chọn tài khoản nguồn---";
-
 
         }
-
         void initThongTin() {
-
             lbTenChuTK.Text = the.TenKhachHang;
             lbTenNganHang.Text = the.TenNganHang;
             lbSoThe.Text = soThe;
@@ -57,10 +54,6 @@ namespace WinFormsApp1 {
             cb_TraCuuSoDu.DataSource = the.getListSoTaiKhoan;
             cb_TraCuuSoDu.DropDownWidth = Tool.DropDownWidth(cb_TraCuuSoDu);
         }
-
-
-
-
         private void btn_RutTien_Click(object sender, EventArgs e) {
             decimal soTienRut = Decimal.Parse(inp_rutTien_soTienRut.Text);
             String soTaiKhoan = cb_rutTien_taiKhoanNguon.SelectedItem.ToString();
@@ -68,7 +61,7 @@ namespace WinFormsApp1 {
 
             if (the.rutTien(soTaiKhoan, soTienRut)) {
                 if (checkBox_RutTien_inHoaDon.Checked) {
-                    
+
                     Program.ShowMsg("Đã rút: " + formatTien(soTienRut) + "\n" +
                         "số dư: " + formatTien(the.tienTrongTK(soTaiKhoan)) + "\n" +
                         "Vào lúc: " + getCurrentTime());
@@ -81,49 +74,59 @@ namespace WinFormsApp1 {
             }
 
         }
-
         private void btn_TraCuuSoDu_Click(object sender, EventArgs e) {
             String soTaiKhoan = cb_TraCuuSoDu.GetItemText(cb_TraCuuSoDu.SelectedItem);
             lb_TraCuu.Text = formatTien(the.tienTrongTK(soTaiKhoan));
         }
 
 
-
         private void btn_ChuyenTien_Click(object sender, EventArgs e) {
-            String soTaiKhoanDich = inp_ChuyenTien_SoTaiKhoan.Text;
-            String soTaiKhoanNguon = cb_ChuyenTien_ChonTaiKhoanNguon.SelectedItem.ToString();
-            String maNganHang = the.danhSachMaNganHang()[cb_ChuyenTien_ChonTaiKhoanNguon.SelectedIndex];
-            decimal soTien = Decimal.Parse(inp_chuyenTien_soTien.Text);
-
-            The the2 = new The();
-            bool check = the2.initThe(soTaiKhoanDich, maNganhang);
-            if (!check) {
-                Program.ShowMsg("Không tìm thấy tài khoản đích");
-            } else if (!the.rutTien(soTaiKhoanNguon, soTien)) {
-                Program.ShowMsg("không đủ số dư");
+            if (inp_chuyenTien_soTien.Text == "" || inp_ChuyenTien_SoTaiKhoan.Text == ""
+                || cb_ChuyenTien_ChonTaiKhoanNguon.SelectedItem == null || cb_ChuyenTien_ChonTenNganHang == null) {
+                Program.ShowMsg("Vui lòng điền đầy đủ thông tin");
+                cb_ChuyenTien_ChonTenNganHang.Focus();
             } else {
-                if (!(the.rutTien(soTaiKhoanNguon, soTien) && the2.napTien(soTaiKhoanDich, soTien))) {
-                    Program.ShowMsg("Lỗi hệ thống!");
-                } else {
-                    if (!checkBox_ChuyenTien_InHoaDon.Checked) {
-                        Program.ShowMsg("Chuyển tiền thành công");
-                    } else {
-                        Program.ShowMsg("Đã Chuyển: " + formatTien(soTien) + "\n" +
-                            "Đến số tài khoản: " + soTaiKhoanDich + "\n" +
-                            "Vào lúc: " + getCurrentTime() + "\n" +
-                            "số dư: " + formatTien(the.tienTrongTK(soTaiKhoanNguon)));
-                    }
-                }
 
+                String soTaiKhoanDich = inp_ChuyenTien_SoTaiKhoan.Text;
+                String soTaiKhoanNguon = cb_ChuyenTien_ChonTaiKhoanNguon.SelectedItem.ToString();
+                String maNH = the.danhSachMaNganHang()[cb_ChuyenTien_ChonTenNganHang.SelectedIndex];
+                String moTa = inp_chuyenTien_MoTa.Text;
+                decimal soTien = Decimal.Parse(inp_chuyenTien_soTien.Text);
+
+                The the2 = new The();
+                bool check = the2.initThe(soTaiKhoanDich, maNH);
+                if (!check) {
+                    Program.ShowMsg("Không tìm thấy tài khoản đích");
+                } else if (!the.rutTien(soTaiKhoanNguon, soTien)) {
+                    Program.ShowMsg("không đủ số dư");
+                } else {
+                    if (!(the.rutTien(soTaiKhoanNguon, soTien)
+                        && the2.napTien(soTaiKhoanDich, soTien)
+                        && the.giaoDich('c', soTaiKhoanDich, soTien, the2.TenKhachHang, moTa)
+                        && the2.giaoDich('n', soTaiKhoanNguon, soTien, the.TenKhachHang, moTa))) {
+                        Program.ShowMsg("Lỗi hệ thống!");
+                    } else {
+                        if (!checkBox_ChuyenTien_InHoaDon.Checked) {
+                            Program.ShowMsg("Chuyển tiền thành công");
+                        } else {
+                            Program.ShowMsg("Đã Chuyển: " + formatTien(soTien) + "\n" +
+                                "Đến số tài khoản: " + soTaiKhoanDich + "\n" +
+                                "Vào lúc: " + getCurrentTime() + "\n" +
+                                "số dư: " + formatTien(the.tienTrongTK(soTaiKhoanNguon)));
+                        }
+                    }
+
+                }
             }
         }
 
+        private void button9_Click(object sender, EventArgs e) {
+            listBox_SaoKe.DataSource = the.danhSachGiaoDich();
+        }
 
-
-
-
-
-
+        private void inp_rutTien_soTienRut_Leave(object sender, EventArgs e) {
+         
+        }
 
 
 
@@ -142,8 +145,6 @@ namespace WinFormsApp1 {
 
         }
 
-
-
         String formatTien(decimal tien) {
             return string.Format(new CultureInfo("vi-VN"), "{0:#,0.## VNĐ}", tien);
         }
@@ -151,6 +152,35 @@ namespace WinFormsApp1 {
             return DateTime.Now.ToString("HH:mm:ss tt, dd/MM/yyyy");
         }
 
+        private void btn_logout_Click(object sender, EventArgs e) {
+            Close();
+        }
 
+        private void btn_100_Click(object sender, EventArgs e) {
+            inp_rutTien_soTienRut.Text = "100,000";
+    
+        }
+
+        private void btn_200_Click(object sender, EventArgs e) {
+            inp_rutTien_soTienRut.Text = "200,000";
+        }
+
+        private void btn_300_Click(object sender, EventArgs e) {
+            inp_rutTien_soTienRut.Text = "500,000";
+        }
+
+        private void btn_1000_Click(object sender, EventArgs e) {
+            inp_rutTien_soTienRut.Text = "1,000,000";
+        }
+
+        private void btn_5000_Click(object sender, EventArgs e) {
+            inp_rutTien_soTienRut.Text = "5,000,000";
+        }
+
+        private void btn_soKhac_Click(object sender, EventArgs e) {
+            inp_rutTien_soTienRut.Focus();
+        }
+
+       
     }
 }

@@ -33,8 +33,6 @@ namespace WinFormsApp1 {
             cbTenNganHang.DropDownWidth = Tool.DropDownWidth(cbTenNganHang);
             inpSoThe.Text = "69999";
             inpPIN.Text = "123";
-            cbTenNganHang.SelectedText = "--Chọn ngân hàng--";
-            
             cbTenNganHang.SelectedIndex = new The().danhSachMaNganHang().IndexOf("TPB");
 
 
@@ -56,6 +54,10 @@ namespace WinFormsApp1 {
             } else {
                 Program.ShowMsg("Sai ma");
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e) {
+            Close();
         }
     }
 }
