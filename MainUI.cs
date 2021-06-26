@@ -14,12 +14,14 @@ namespace WinFormsApp1 {
 
         private string maNganhang;
         private string soThe;
+        private string pin;
 
         The the;
-        public MainUI(string maNganhang, string soThe) {
+        public MainUI(string maNganhang, string soThe, string pin) {
             InitializeComponent();
             this.maNganhang = maNganhang;
             this.soThe = soThe;
+            this.pin = pin;
         }
 
         private void MainUI_Load(object sender, EventArgs e) {
@@ -35,7 +37,7 @@ namespace WinFormsApp1 {
         private void initChuyenTien() {
             cb_ChuyenTien_ChonTaiKhoanNguon.DataSource = the.getListSoTaiKhoan;
             cb_ChuyenTien_ChonTaiKhoanNguon.SelectedIndex = 0;
-         
+
             cb_ChuyenTien_ChonTaiKhoanNguon.DropDownWidth = Tool.DropDownWidth(cb_ChuyenTien_ChonTaiKhoanNguon);
 
             cb_ChuyenTien_ChonTenNganHang.DataSource = the.getAllNganHang();
@@ -129,14 +131,14 @@ namespace WinFormsApp1 {
 
             }
         }
-
-        private void button9_Click(object sender, EventArgs e) {
+   
+        private void btnSaoKe_Click(object sender, EventArgs e) {
             if (comboBox_SaoKe.SelectedIndex == 0) {
-                showMsg("Bạn chưa chọn tài khoản!",);
+                showMsg("Bạn chưa chọn tài khoản!");
                 return;
-            } 
+            }
             String soTaiKhoan = comboBox_SaoKe.SelectedItem.ToString();
-            listBox_SaoKe.DataSource = the.danhSachGiaoDich(soTaiKhoan,maNganhang);
+            listBox_SaoKe.DataSource = the.danhSachGiaoDich(soTaiKhoan, maNganhang);
         }
 
         private void inp_rutTien_soTienRut_Leave(object sender, EventArgs e) {
@@ -155,6 +157,31 @@ namespace WinFormsApp1 {
                 e.Handled = true;
             }
 
+        }
+        private void btn_DoiPin_Click(object sender, EventArgs e) {
+
+            if (inp_pinCu.Text == "" || inp_pinMoi.Text == "" || inp_XacNhanPinMoi.Text == "") {
+                showMsg();
+                return;
+            } else {
+                String pinCu = inp_pinCu.Text;
+                String pinMoi = inp_pinMoi.Text;
+                String XacNhanPinMoi = inp_XacNhanPinMoi.Text;
+                if (!pinCu.Equals(this.pin)) {
+                    showMsg("PIN Cũ không đúng");
+                } else if (pinMoi != XacNhanPinMoi) {
+                    showMsg("Xác nhận pin mới không đúng");
+                } else if (pinMoi.Length > 3) {
+                    showMsg("PIN chỉ có độ dài tối đa 3 số");
+                } else if (!the.doiPin(pinMoi, this.soThe, this.maNganhang)) {
+                    showMsg("Lỗi hệ thống", true);
+                } else {
+                    showMsg("Đổi PIN thành công!");
+                    inp_XacNhanPinMoi.Text = "";
+                    inp_pinCu.Text = "";
+                    inp_pinMoi.Text = "";
+                }
+            }
 
         }
 
@@ -166,7 +193,7 @@ namespace WinFormsApp1 {
         }
 
         private void btn_logout_Click(object sender, EventArgs e) {
-            Close();
+            Tool.confirmExit(this);
         }
 
         private void btn_100_Click(object sender, EventArgs e) {
@@ -197,9 +224,14 @@ namespace WinFormsApp1 {
         public void showMsg(string msg) {
             MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        public void showMsg() {
+            MessageBox.Show("Bạn phải nhập đầy đủ các trường", "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         public void showMsg(string msg, bool err) {
             MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
+
+       
     }
 }

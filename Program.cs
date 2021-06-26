@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace WinFormsApp1 {
@@ -22,10 +20,19 @@ namespace WinFormsApp1 {
         public static void ShowMsg(string msg) {
             MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        public static void ShowMsg() {
+            MessageBox.Show("Bạn phải điền đủ thông tin", "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static void ShowMsgConfirm(string msg) {
+            MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+
 
         public static void ShowMsg(string msg, bool err) {
             MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
+
 
     }
 }

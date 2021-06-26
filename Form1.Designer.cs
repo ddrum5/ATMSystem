@@ -34,6 +34,7 @@ namespace WinFormsApp1 {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.btn_DangKy = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,18 +130,28 @@ namespace WinFormsApp1 {
             // 
             // btnThoat
             // 
-            this.btnThoat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.btnThoat.BackColor = System.Drawing.Color.Brown;
             this.btnThoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.83168F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnThoat.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnThoat.Location = new System.Drawing.Point(157, 297);
+            this.btnThoat.Location = new System.Drawing.Point(157, 350);
             this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(290, 49);
+            this.btnThoat.Size = new System.Drawing.Size(290, 47);
             this.btnThoat.TabIndex = 14;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = false;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // btn_DangKy
+            // 
+            this.btn_DangKy.BackColor = System.Drawing.Color.Brown;
+            this.btn_DangKy.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btn_DangKy.Location = new System.Drawing.Point(158, 287);
+            this.btn_DangKy.Name = "btn_DangKy";
+            this.btn_DangKy.Size = new System.Drawing.Size(289, 49);
+            this.btn_DangKy.TabIndex = 14;
+            this.btn_DangKy.Text = "Đăng Ký";
+            this.btn_DangKy.UseVisualStyleBackColor = false;
+            this.btn_DangKy.Click += new System.EventHandler(this.btn_DangKy_Click);
             // 
             // formDangNhap
             // 
@@ -151,8 +162,9 @@ namespace WinFormsApp1 {
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BorderThickness = 3F;
-            this.ClientSize = new System.Drawing.Size(537, 389);
+            this.ClientSize = new System.Drawing.Size(569, 460);
             this.Controls.Add(this.btnThoat);
+            this.Controls.Add(this.btn_DangKy);
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.metroSetLabel3);
@@ -184,6 +196,7 @@ namespace WinFormsApp1 {
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnDangNhap;
         private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Button btn_DangKy;
     }
 }
 

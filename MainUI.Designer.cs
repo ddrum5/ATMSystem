@@ -72,21 +72,21 @@ namespace WinFormsApp1 {
             this.label9 = new System.Windows.Forms.Label();
             this.btn_TraCuuSoDu = new System.Windows.Forms.Button();
             this.tabSaoKe = new System.Windows.Forms.TabPage();
-            this.button9 = new System.Windows.Forms.Button();
+            this.comboBox_SaoKe = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnSaoKe = new System.Windows.Forms.Button();
             this.listBox_SaoKe = new System.Windows.Forms.ListBox();
             this.tabDoiPin = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.metroSetLabel6 = new MetroSet_UI.Controls.MetroSetLabel();
             this.metroSetLabel5 = new MetroSet_UI.Controls.MetroSetLabel();
             this.metroSetLabel4 = new MetroSet_UI.Controls.MetroSetLabel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button10 = new System.Windows.Forms.Button();
+            this.inp_pinCu = new System.Windows.Forms.TextBox();
+            this.inp_pinMoi = new System.Windows.Forms.TextBox();
+            this.inp_XacNhanPinMoi = new System.Windows.Forms.TextBox();
+            this.btn_DoiPin = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_logout = new System.Windows.Forms.Button();
-            this.comboBox_SaoKe = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.tabThongTinTK.SuspendLayout();
             this.tabRutTien.SuspendLayout();
@@ -141,6 +141,7 @@ namespace WinFormsApp1 {
             // 
             // listBoxSoTaiKhoan
             // 
+            this.listBoxSoTaiKhoan.ForeColor = System.Drawing.Color.IndianRed;
             this.listBoxSoTaiKhoan.FormattingEnabled = true;
             this.listBoxSoTaiKhoan.ItemHeight = 22;
             this.listBoxSoTaiKhoan.Location = new System.Drawing.Point(191, 156);
@@ -151,38 +152,42 @@ namespace WinFormsApp1 {
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Brown;
             this.label6.Location = new System.Drawing.Point(41, 70);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 22);
+            this.label6.Size = new System.Drawing.Size(98, 22);
             this.label6.TabIndex = 10;
-            this.label6.Text = "ten ngan hang";
+            this.label6.Text = "Ngân hàng";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Brown;
             this.label2.Location = new System.Drawing.Point(41, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(147, 22);
+            this.label2.Size = new System.Drawing.Size(121, 22);
             this.label2.TabIndex = 9;
-            this.label2.Text = "ten chu tai khoan";
+            this.label2.Text = "Chủ tài khoản";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Brown;
             this.label5.Location = new System.Drawing.Point(41, 156);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(138, 22);
+            this.label5.Size = new System.Drawing.Size(110, 22);
             this.label5.TabIndex = 8;
-            this.label5.Text = "SO TAI KHOAN";
+            this.label5.Text = "Số tài khoản";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Brown;
             this.label4.Location = new System.Drawing.Point(41, 116);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 22);
+            this.label4.Size = new System.Drawing.Size(62, 22);
             this.label4.TabIndex = 7;
-            this.label4.Text = "SO THE";
+            this.label4.Text = "Số thẻ";
             // 
             // metroSetBadge1
             // 
@@ -222,6 +227,7 @@ namespace WinFormsApp1 {
             // lbTenNganHang
             // 
             this.lbTenNganHang.AutoSize = true;
+            this.lbTenNganHang.ForeColor = System.Drawing.Color.Firebrick;
             this.lbTenNganHang.Location = new System.Drawing.Point(191, 70);
             this.lbTenNganHang.Name = "lbTenNganHang";
             this.lbTenNganHang.Size = new System.Drawing.Size(78, 22);
@@ -231,6 +237,7 @@ namespace WinFormsApp1 {
             // lbTenChuTK
             // 
             this.lbTenChuTK.AutoSize = true;
+            this.lbTenChuTK.ForeColor = System.Drawing.Color.Firebrick;
             this.lbTenChuTK.Location = new System.Drawing.Point(191, 26);
             this.lbTenChuTK.Name = "lbTenChuTK";
             this.lbTenChuTK.Size = new System.Drawing.Size(99, 22);
@@ -240,6 +247,7 @@ namespace WinFormsApp1 {
             // lbSoThe
             // 
             this.lbSoThe.AutoSize = true;
+            this.lbSoThe.ForeColor = System.Drawing.Color.Firebrick;
             this.lbSoThe.Location = new System.Drawing.Point(191, 116);
             this.lbSoThe.Name = "lbSoThe";
             this.lbSoThe.Size = new System.Drawing.Size(59, 22);
@@ -300,7 +308,7 @@ namespace WinFormsApp1 {
             this.tableTablayoutRutTien.ColumnCount = 3;
             this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.61728F));
             this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.38272F));
-            this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
+            this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableTablayoutRutTien.Controls.Add(this.btn_100, 0, 0);
             this.tableTablayoutRutTien.Controls.Add(this.btn_200, 1, 0);
             this.tableTablayoutRutTien.Controls.Add(this.btn_300, 2, 0);
@@ -323,7 +331,7 @@ namespace WinFormsApp1 {
             this.btn_100.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_100.Location = new System.Drawing.Point(3, 3);
             this.btn_100.Name = "btn_100";
-            this.btn_100.Size = new System.Drawing.Size(160, 75);
+            this.btn_100.Size = new System.Drawing.Size(158, 75);
             this.btn_100.TabIndex = 0;
             this.btn_100.Text = "100.000 VNĐ";
             this.btn_100.UseVisualStyleBackColor = true;
@@ -332,9 +340,9 @@ namespace WinFormsApp1 {
             // btn_200
             // 
             this.btn_200.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_200.Location = new System.Drawing.Point(169, 3);
+            this.btn_200.Location = new System.Drawing.Point(167, 3);
             this.btn_200.Name = "btn_200";
-            this.btn_200.Size = new System.Drawing.Size(155, 75);
+            this.btn_200.Size = new System.Drawing.Size(154, 75);
             this.btn_200.TabIndex = 1;
             this.btn_200.Text = "200.000 VNĐ";
             this.btn_200.UseVisualStyleBackColor = true;
@@ -343,9 +351,9 @@ namespace WinFormsApp1 {
             // btn_300
             // 
             this.btn_300.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_300.Location = new System.Drawing.Point(330, 3);
+            this.btn_300.Location = new System.Drawing.Point(327, 3);
             this.btn_300.Name = "btn_300";
-            this.btn_300.Size = new System.Drawing.Size(167, 75);
+            this.btn_300.Size = new System.Drawing.Size(170, 75);
             this.btn_300.TabIndex = 2;
             this.btn_300.Text = "500.000 VNĐ";
             this.btn_300.UseVisualStyleBackColor = true;
@@ -356,7 +364,7 @@ namespace WinFormsApp1 {
             this.btn_1000.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_1000.Location = new System.Drawing.Point(3, 84);
             this.btn_1000.Name = "btn_1000";
-            this.btn_1000.Size = new System.Drawing.Size(160, 76);
+            this.btn_1000.Size = new System.Drawing.Size(158, 76);
             this.btn_1000.TabIndex = 3;
             this.btn_1000.Text = "1.000.000 VNĐ";
             this.btn_1000.UseVisualStyleBackColor = true;
@@ -365,9 +373,9 @@ namespace WinFormsApp1 {
             // btn_5000
             // 
             this.btn_5000.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_5000.Location = new System.Drawing.Point(169, 84);
+            this.btn_5000.Location = new System.Drawing.Point(167, 84);
             this.btn_5000.Name = "btn_5000";
-            this.btn_5000.Size = new System.Drawing.Size(155, 76);
+            this.btn_5000.Size = new System.Drawing.Size(154, 76);
             this.btn_5000.TabIndex = 4;
             this.btn_5000.Text = "5.000.000 VNĐ";
             this.btn_5000.UseVisualStyleBackColor = true;
@@ -376,9 +384,9 @@ namespace WinFormsApp1 {
             // btn_soKhac
             // 
             this.btn_soKhac.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_soKhac.Location = new System.Drawing.Point(330, 84);
+            this.btn_soKhac.Location = new System.Drawing.Point(327, 84);
             this.btn_soKhac.Name = "btn_soKhac";
-            this.btn_soKhac.Size = new System.Drawing.Size(167, 76);
+            this.btn_soKhac.Size = new System.Drawing.Size(170, 76);
             this.btn_soKhac.TabIndex = 5;
             this.btn_soKhac.Text = "Số Khác";
             this.btn_soKhac.UseVisualStyleBackColor = true;
@@ -642,7 +650,7 @@ namespace WinFormsApp1 {
             // 
             this.tabSaoKe.Controls.Add(this.comboBox_SaoKe);
             this.tabSaoKe.Controls.Add(this.label10);
-            this.tabSaoKe.Controls.Add(this.button9);
+            this.tabSaoKe.Controls.Add(this.btnSaoKe);
             this.tabSaoKe.Controls.Add(this.listBox_SaoKe);
             this.tabSaoKe.Location = new System.Drawing.Point(4, 44);
             this.tabSaoKe.Name = "tabSaoKe";
@@ -651,17 +659,35 @@ namespace WinFormsApp1 {
             this.tabSaoKe.Text = "Sao kê";
             this.tabSaoKe.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // comboBox_SaoKe
             // 
-            this.button9.BackColor = System.Drawing.Color.Brown;
-            this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(469, 25);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(192, 68);
-            this.button9.TabIndex = 11;
-            this.button9.Text = "Sao kê";
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.comboBox_SaoKe.FormattingEnabled = true;
+            this.comboBox_SaoKe.Location = new System.Drawing.Point(55, 63);
+            this.comboBox_SaoKe.Name = "comboBox_SaoKe";
+            this.comboBox_SaoKe.Size = new System.Drawing.Size(372, 30);
+            this.comboBox_SaoKe.TabIndex = 14;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.Maroon;
+            this.label10.Location = new System.Drawing.Point(55, 25);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(138, 22);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "*Chọn tài khoản";
+            // 
+            // btnSaoKe
+            // 
+            this.btnSaoKe.BackColor = System.Drawing.Color.Brown;
+            this.btnSaoKe.ForeColor = System.Drawing.Color.White;
+            this.btnSaoKe.Location = new System.Drawing.Point(469, 25);
+            this.btnSaoKe.Name = "btnSaoKe";
+            this.btnSaoKe.Size = new System.Drawing.Size(192, 68);
+            this.btnSaoKe.TabIndex = 11;
+            this.btnSaoKe.Text = "Sao kê";
+            this.btnSaoKe.UseVisualStyleBackColor = false;
+            this.btnSaoKe.Click += new System.EventHandler(this.btnSaoKe_Click);
             // 
             // listBox_SaoKe
             // 
@@ -680,10 +706,10 @@ namespace WinFormsApp1 {
             this.tabDoiPin.Controls.Add(this.metroSetLabel6);
             this.tabDoiPin.Controls.Add(this.metroSetLabel5);
             this.tabDoiPin.Controls.Add(this.metroSetLabel4);
-            this.tabDoiPin.Controls.Add(this.textBox4);
-            this.tabDoiPin.Controls.Add(this.textBox3);
-            this.tabDoiPin.Controls.Add(this.textBox2);
-            this.tabDoiPin.Controls.Add(this.button10);
+            this.tabDoiPin.Controls.Add(this.inp_pinCu);
+            this.tabDoiPin.Controls.Add(this.inp_pinMoi);
+            this.tabDoiPin.Controls.Add(this.inp_XacNhanPinMoi);
+            this.tabDoiPin.Controls.Add(this.btn_DoiPin);
             this.tabDoiPin.Location = new System.Drawing.Point(4, 44);
             this.tabDoiPin.Name = "tabDoiPin";
             this.tabDoiPin.Size = new System.Drawing.Size(706, 511);
@@ -743,43 +769,44 @@ namespace WinFormsApp1 {
             this.metroSetLabel4.ThemeAuthor = "Narwin";
             this.metroSetLabel4.ThemeName = "MetroLite";
             // 
-            // textBox4
+            // inp_pinCu
             // 
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(194, 114);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(394, 32);
-            this.textBox4.TabIndex = 14;
+            this.inp_pinCu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inp_pinCu.Location = new System.Drawing.Point(194, 114);
+            this.inp_pinCu.Multiline = true;
+            this.inp_pinCu.Name = "inp_pinCu";
+            this.inp_pinCu.Size = new System.Drawing.Size(394, 32);
+            this.inp_pinCu.TabIndex = 14;
             // 
-            // textBox3
+            // inp_pinMoi
             // 
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Location = new System.Drawing.Point(194, 189);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(394, 32);
-            this.textBox3.TabIndex = 14;
+            this.inp_pinMoi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inp_pinMoi.Location = new System.Drawing.Point(194, 189);
+            this.inp_pinMoi.Multiline = true;
+            this.inp_pinMoi.Name = "inp_pinMoi";
+            this.inp_pinMoi.Size = new System.Drawing.Size(394, 32);
+            this.inp_pinMoi.TabIndex = 14;
             // 
-            // textBox2
+            // inp_XacNhanPinMoi
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(194, 258);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(394, 32);
-            this.textBox2.TabIndex = 14;
+            this.inp_XacNhanPinMoi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inp_XacNhanPinMoi.Location = new System.Drawing.Point(194, 258);
+            this.inp_XacNhanPinMoi.Multiline = true;
+            this.inp_XacNhanPinMoi.Name = "inp_XacNhanPinMoi";
+            this.inp_XacNhanPinMoi.Size = new System.Drawing.Size(394, 32);
+            this.inp_XacNhanPinMoi.TabIndex = 14;
             // 
-            // button10
+            // btn_DoiPin
             // 
-            this.button10.BackColor = System.Drawing.Color.Maroon;
-            this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Location = new System.Drawing.Point(194, 357);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(394, 54);
-            this.button10.TabIndex = 5;
-            this.button10.Text = "Rút Tiền";
-            this.button10.UseVisualStyleBackColor = false;
+            this.btn_DoiPin.BackColor = System.Drawing.Color.Maroon;
+            this.btn_DoiPin.ForeColor = System.Drawing.Color.White;
+            this.btn_DoiPin.Location = new System.Drawing.Point(194, 357);
+            this.btn_DoiPin.Name = "btn_DoiPin";
+            this.btn_DoiPin.Size = new System.Drawing.Size(394, 54);
+            this.btn_DoiPin.TabIndex = 5;
+            this.btn_DoiPin.Text = "Đổi PIN";
+            this.btn_DoiPin.UseVisualStyleBackColor = false;
+            this.btn_DoiPin.Click += new System.EventHandler(this.btn_DoiPin_Click);
             // 
             // pictureBox1
             // 
@@ -803,24 +830,6 @@ namespace WinFormsApp1 {
             this.btn_logout.Text = "Thoát";
             this.btn_logout.UseVisualStyleBackColor = false;
             this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
-            // 
-            // comboBox_SaoKe
-            // 
-            this.comboBox_SaoKe.FormattingEnabled = true;
-            this.comboBox_SaoKe.Location = new System.Drawing.Point(55, 63);
-            this.comboBox_SaoKe.Name = "comboBox_SaoKe";
-            this.comboBox_SaoKe.Size = new System.Drawing.Size(372, 30);
-            this.comboBox_SaoKe.TabIndex = 14;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.Maroon;
-            this.label10.Location = new System.Drawing.Point(55, 25);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(138, 22);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "*Chọn tài khoản";
             // 
             // MainUI
             // 
@@ -895,15 +904,15 @@ namespace WinFormsApp1 {
         private MetroSet_UI.Controls.MetroSetLabel metroSetLabel3;
         private ComboBox cb_ChuyenTien_ChonTaiKhoanNguon;
         private Button btn_TraCuuSoDu;
-        private Button button9;
+        private Button btnSaoKe;
         private Label label8;
         private MetroSet_UI.Controls.MetroSetLabel metroSetLabel6;
         private MetroSet_UI.Controls.MetroSetLabel metroSetLabel5;
         private MetroSet_UI.Controls.MetroSetLabel metroSetLabel4;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private Button button10;
+        private TextBox inp_pinCu;
+        private TextBox inp_pinMoi;
+        private TextBox inp_XacNhanPinMoi;
+        private Button btn_DoiPin;
         private ComboBox cb_TraCuuSoDu;
         private Label label9;
         private Label lb_TraCuu;

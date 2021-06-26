@@ -1,7 +1,9 @@
 ﻿using System;
 
 using WinFormsApp1.Ulti;
+
 using MetroSet_UI.Forms;
+using System.Windows.Forms;
 
 namespace WinFormsApp1 {
     public partial class formDangNhap:MetroSetForm {
@@ -46,7 +48,7 @@ namespace WinFormsApp1 {
 
 
                 if (new The().checkPin(st, nh, pin)) {
-                    MainUI mainUI = new MainUI(nh, st);
+                    MainUI mainUI = new MainUI(nh, st, pin);
                     Hide();
                     mainUI.ShowDialog();
                     Show();
@@ -56,26 +58,22 @@ namespace WinFormsApp1 {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        private void btn_DangKy_Click(object sender, EventArgs e) {
+            Hide();
+            new DangKy().ShowDialog();
+            Show();
+        }
 
         private void btnThoat_Click(object sender, EventArgs e) {
-            Close();
+
+            Tool.confirmExit(this);
+           
+        
+            
         }
+       
+        
+
     }
+
 }

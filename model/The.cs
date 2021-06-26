@@ -18,8 +18,6 @@ namespace WinFormsApp1 {
         string tenKhachHang;
         byte trangThai;
         int idThe;
-
-     
         public The() {
 
         }
@@ -27,7 +25,6 @@ namespace WinFormsApp1 {
         public List<string> getListSoTaiKhoan { get => listSoTaiKhoan; set => listSoTaiKhoan = value; }
         public string TenKhachHang { get => tenKhachHang; set => tenKhachHang = value; }
         public byte TrangThai { get => trangThai; set => trangThai = value; }
-
         public bool initThe(string soTaiKhoan, string maNganHang) {
             bool check = false;
             //SO TK, TTRANG THAI
@@ -55,7 +52,6 @@ namespace WinFormsApp1 {
             }
             return check;
         }
-
         public The(string soThe, string maNganHang) {
             //SO TK, TTRANG THAI
             using (SqlCommand cmd = conn.CreateCommand()) {
@@ -83,9 +79,8 @@ namespace WinFormsApp1 {
             }
 
         }// dong hamtao
-
         //ham
-        public bool giaoDich(String idNganHangNguon, String soTaiKhoanNguon,String idNganHangDich, String soTaiKhoanDich, decimal soTien, String moTa) {
+        public bool giaoDich(String idNganHangNguon, String soTaiKhoanNguon, String idNganHangDich, String soTaiKhoanDich, decimal soTien, String moTa) {
             int rowCount1 = 0;
             int rowCount2 = 0;
             String msg1 = "Chuyển tiền: -" + soTien + " đến tài khoản: " + soTaiKhoanDich + ", Mô tả: \" " + moTa + " \" ";
@@ -94,7 +89,7 @@ namespace WinFormsApp1 {
                     string sql = "INSERT INTO dbo.GIAODICH VALUES (@idTk, @moTa, @thoiGian)";
                     cmd.CommandText = sql;
                     // Thêm và sét đặt giá trị cho tham số.
-                    cmd.Parameters.Add("@idTk", SqlDbType.Int).Value = getIdTaiKhoan(soTaiKhoanNguon,idNganHangNguon);
+                    cmd.Parameters.Add("@idTk", SqlDbType.Int).Value = getIdTaiKhoan(soTaiKhoanNguon, idNganHangNguon);
                     cmd.Parameters.Add("@moTa", SqlDbType.NVarChar).Value = msg1;
                     cmd.Parameters.Add("@thoiGian", SqlDbType.Char).Value = Tool.getCurrentTime();
                     // Thực thi Command (Dùng cho delete, insert, update).
@@ -109,7 +104,7 @@ namespace WinFormsApp1 {
                     string sql = "INSERT INTO dbo.GIAODICH VALUES (@idTk, @moTa, @thoiGian)";
                     cmd.CommandText = sql;
                     // Thêm và sét đặt giá trị cho tham số.
-                    cmd.Parameters.Add("@idTk", SqlDbType.Int).Value = getIdTaiKhoan(soTaiKhoanDich,idNganHangDich);
+                    cmd.Parameters.Add("@idTk", SqlDbType.Int).Value = getIdTaiKhoan(soTaiKhoanDich, idNganHangDich);
                     cmd.Parameters.Add("@moTa", SqlDbType.NVarChar).Value = msg2;
                     cmd.Parameters.Add("@thoiGian", SqlDbType.Char).Value = Tool.getCurrentTime();
                     // Thực thi Command (Dùng cho delete, insert, update).
@@ -121,15 +116,13 @@ namespace WinFormsApp1 {
 
             return (rowCount1 > 0 && rowCount2 > 0);
         }
-
-        public bool chuyenTien(String idNganHangNguon, String taiKhoanNguon,String idNganHangDich,String taiKhoanDich,  decimal soTien,String moTa) {
+        public bool chuyenTien(String idNganHangNguon, String taiKhoanNguon, String idNganHangDich, String taiKhoanDich, decimal soTien, String moTa) {
             if (rutTien(taiKhoanNguon, idNganHangNguon, soTien) && napTien(taiKhoanDich, idNganHangDich, soTien)
-                && giaoDich(idNganHangNguon, taiKhoanNguon,idNganHangDich, taiKhoanDich,soTien,moTa)) {
+                && giaoDich(idNganHangNguon, taiKhoanNguon, idNganHangDich, taiKhoanDich, soTien, moTa)) {
                 return true;
             }
             return false;
         }
-
         public int getIdTaiKhoan(String soTaiKhoan, String idNganHang) {
             int id = 0;
             //SO TK, TTRANG THAI
@@ -147,7 +140,43 @@ namespace WinFormsApp1 {
             }
             return id;
         }
-
+        public int getIdThe(String soThe, String idNganHang) {
+            int id = 0;
+            //SO TK, TTRANG THAI
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                try {
+                    string sql = "SELECT ID_THE FROM dbo.THE WHERE SOTHE = @soThe and ID_NH= @idNganhang";
+                    cmd.CommandText = sql;
+                    cmd.Parameters.Add("@soThe", SqlDbType.VarChar).Value = soThe;
+                    cmd.Parameters.Add("@idNganhang", SqlDbType.VarChar).Value = idNganHang;
+                    using (SqlDataReader reader = cmd.ExecuteReader()) {
+                        if (reader.HasRows)
+                            while (reader.Read()) {
+                                id = reader.GetInt32(0);
+                            }
+                    }
+                } catch (Exception e) {
+                    e.ToString();
+                }
+                
+            }
+            return id;
+        }
+        public int getIdKhachHang() {
+            int id = 0;
+            //SO TK, TTRANG THAI
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                string sql = "SELECT TOP (1) ID_KH FROM dbo.KHACHHANG ORDER BY ID_KH DESC ";
+                cmd.CommandText = sql;
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    if (reader.HasRows)
+                        while (reader.Read()) {
+                            id = reader.GetInt32(0);
+                        }
+                }
+            }
+            return id;
+        }
 
         public bool rutTien(String soTaiKhoan, String idNganHang, decimal st) {
             int rowCount = 0;
@@ -228,7 +257,6 @@ namespace WinFormsApp1 {
             return false;
 
         }
-        //Danh sach ngan hang
         public List<NganHang> getAllNganHang() {
             List<NganHang> list = new List<NganHang>();
             using (SqlCommand cmd = conn.CreateCommand()) {
@@ -248,8 +276,7 @@ namespace WinFormsApp1 {
             list.Insert(0, new NganHang("-1", "--chọn tên ngân hàng--"));
             return list;
         }
-
-        public List<String> danhSachGiaoDich(String soTaiKhoan,String maNganHang) {
+        public List<String> danhSachGiaoDich(String soTaiKhoan, String maNganHang) {
             List<String> list = new List<string>();
             using (SqlCommand cmd = conn.CreateCommand()) {
                 string sql = "SELECT MOTA,THOIGIAN FROM dbo.GIAODICH WHERE ID_TK=" + getIdTaiKhoan(soTaiKhoan, maNganHang);
@@ -267,13 +294,103 @@ namespace WinFormsApp1 {
 
             return list;
         }
+        public bool doiPin(String pin, String soThe, String idNganHang) {
+            int rowCount = 0;
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                try {
+                    string sql = "UPDATE dbo.THE SET PIN =@pin WHERE ID_NH =@idNganHang AND SOTHE=@sothe";
+                    cmd.CommandText = sql;
+                    // Thêm và sét đặt giá trị cho tham số.
+                    cmd.Parameters.Add("@pin", SqlDbType.VarChar).Value = pin;
+                    cmd.Parameters.Add("@idNganHang", SqlDbType.VarChar).Value = idNganHang;
+                    cmd.Parameters.Add("@sothe", SqlDbType.VarChar).Value = soThe;
+                    // Thực thi Command (Dùng cho delete, insert, update).
+                    rowCount = cmd.ExecuteNonQuery();
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+            return rowCount > 0;
+        }
+        public bool checkSoThe(String idNganHang, String soThe) {
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                string sql = "SELECT * FROM dbo.THE WHERE ID_NH = '" +
+                idNganHang +
+                "' AND SOTHE = '" +
+                soThe +
+                "'";
+                cmd.CommandText = sql;
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    if (reader.HasRows) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public bool checkSoTaiKhoan(String idNganHang, String soTaiKhoan) {
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                string sql = "SELECT * FROM dbo.TAIKHOAN WHERE ID_NH = '" +
+                idNganHang +
+                "' AND SOTK = '" +
+                soTaiKhoan +
+                "'";
+                cmd.CommandText = sql;
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    if (reader.HasRows) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
-
-
-
-
-
-
+        internal bool themTaiKhoan(string hoTen, string sdt, string diaChi, string maNganHang, string pin, string soThe, string soTaiKhoan) {
+            int rowCount = 0;
+            int kh=0, the=0, tk=0;
+            using (SqlCommand cmd = conn.CreateCommand()) {
+                try { 
+                    string sql = "INSERT INTO dbo.KHACHHANG VALUES(N'" +
+                        hoTen +
+                        "','" +
+                        sdt +
+                        "',N'" +
+                        diaChi +
+                        "')";
+                    cmd.CommandText = sql;
+                    kh = cmd.ExecuteNonQuery();
+                    //////////////
+                    string sql2 = "INSERT INTO dbo.THE VALUES('" +
+                        maNganHang +
+                        "','" +
+                        soThe +
+                        "','" +
+                        pin +
+                        "'," +
+                        getIdKhachHang() +
+                        ",'" +
+                        "1" +
+                        "')";
+                    cmd.CommandText = sql2;
+                    the = cmd.ExecuteNonQuery();
+                    //////////////
+                    string sql3 = "INSERT INTO dbo.TAIKHOAN VALUES(" +
+                        getIdThe(soThe, maNganHang) +
+                        ",'" +
+                        maNganHang +
+                        "','" +
+                        soTaiKhoan +
+                        "'," +
+                        "0)";
+                    cmd.CommandText = sql3;
+                    tk = cmd.ExecuteNonQuery();
+                } catch (Exception e) {
+                    e.ToString();
+                    return false;
+                }
+            }
+            return (kh>0 && the>0 &&tk>0);
+        }
 
     }//
 
