@@ -20,11 +20,11 @@ namespace WinFormsApp1 {
         }
 
         public static void ShowMsg(string msg) {
-            MessageBox.Show(msg, "Quản lý ngân hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static void ShowMsg(string msg, bool err) {
-            MessageBox.Show(msg, "Quản lý ngân hàng", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
     }

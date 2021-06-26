@@ -52,12 +52,14 @@ namespace WinFormsApp1 {
             this.inpPIN.Name = "inpPIN";
             this.inpPIN.Size = new System.Drawing.Size(290, 28);
             this.inpPIN.TabIndex = 4;
+            this.inpPIN.UseSystemPasswordChar = true;
             // 
             // cbTenNganHang
             // 
             this.cbTenNganHang.FormattingEnabled = true;
             this.cbTenNganHang.Location = new System.Drawing.Point(157, 106);
             this.cbTenNganHang.Name = "cbTenNganHang";
+            this.cbTenNganHang.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbTenNganHang.Size = new System.Drawing.Size(290, 30);
             this.cbTenNganHang.TabIndex = 8;
             // 

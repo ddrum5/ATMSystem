@@ -85,6 +85,8 @@ namespace WinFormsApp1 {
             this.button10 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_logout = new System.Windows.Forms.Button();
+            this.comboBox_SaoKe = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.tabThongTinTK.SuspendLayout();
             this.tabRutTien.SuspendLayout();
@@ -298,7 +300,7 @@ namespace WinFormsApp1 {
             this.tableTablayoutRutTien.ColumnCount = 3;
             this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.61728F));
             this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.38272F));
-            this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
+            this.tableTablayoutRutTien.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
             this.tableTablayoutRutTien.Controls.Add(this.btn_100, 0, 0);
             this.tableTablayoutRutTien.Controls.Add(this.btn_200, 1, 0);
             this.tableTablayoutRutTien.Controls.Add(this.btn_300, 2, 0);
@@ -332,7 +334,7 @@ namespace WinFormsApp1 {
             this.btn_200.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_200.Location = new System.Drawing.Point(169, 3);
             this.btn_200.Name = "btn_200";
-            this.btn_200.Size = new System.Drawing.Size(156, 75);
+            this.btn_200.Size = new System.Drawing.Size(155, 75);
             this.btn_200.TabIndex = 1;
             this.btn_200.Text = "200.000 VNĐ";
             this.btn_200.UseVisualStyleBackColor = true;
@@ -341,9 +343,9 @@ namespace WinFormsApp1 {
             // btn_300
             // 
             this.btn_300.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_300.Location = new System.Drawing.Point(331, 3);
+            this.btn_300.Location = new System.Drawing.Point(330, 3);
             this.btn_300.Name = "btn_300";
-            this.btn_300.Size = new System.Drawing.Size(166, 75);
+            this.btn_300.Size = new System.Drawing.Size(167, 75);
             this.btn_300.TabIndex = 2;
             this.btn_300.Text = "500.000 VNĐ";
             this.btn_300.UseVisualStyleBackColor = true;
@@ -365,7 +367,7 @@ namespace WinFormsApp1 {
             this.btn_5000.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_5000.Location = new System.Drawing.Point(169, 84);
             this.btn_5000.Name = "btn_5000";
-            this.btn_5000.Size = new System.Drawing.Size(156, 76);
+            this.btn_5000.Size = new System.Drawing.Size(155, 76);
             this.btn_5000.TabIndex = 4;
             this.btn_5000.Text = "5.000.000 VNĐ";
             this.btn_5000.UseVisualStyleBackColor = true;
@@ -374,9 +376,9 @@ namespace WinFormsApp1 {
             // btn_soKhac
             // 
             this.btn_soKhac.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_soKhac.Location = new System.Drawing.Point(331, 84);
+            this.btn_soKhac.Location = new System.Drawing.Point(330, 84);
             this.btn_soKhac.Name = "btn_soKhac";
-            this.btn_soKhac.Size = new System.Drawing.Size(166, 76);
+            this.btn_soKhac.Size = new System.Drawing.Size(167, 76);
             this.btn_soKhac.TabIndex = 5;
             this.btn_soKhac.Text = "Số Khác";
             this.btn_soKhac.UseVisualStyleBackColor = true;
@@ -638,6 +640,8 @@ namespace WinFormsApp1 {
             // 
             // tabSaoKe
             // 
+            this.tabSaoKe.Controls.Add(this.comboBox_SaoKe);
+            this.tabSaoKe.Controls.Add(this.label10);
             this.tabSaoKe.Controls.Add(this.button9);
             this.tabSaoKe.Controls.Add(this.listBox_SaoKe);
             this.tabSaoKe.Location = new System.Drawing.Point(4, 44);
@@ -651,9 +655,9 @@ namespace WinFormsApp1 {
             // 
             this.button9.BackColor = System.Drawing.Color.Brown;
             this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(180, 15);
+            this.button9.Location = new System.Drawing.Point(469, 25);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(326, 43);
+            this.button9.Size = new System.Drawing.Size(192, 68);
             this.button9.TabIndex = 11;
             this.button9.Text = "Sao kê";
             this.button9.UseVisualStyleBackColor = false;
@@ -665,9 +669,9 @@ namespace WinFormsApp1 {
             this.listBox_SaoKe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.267326F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBox_SaoKe.FormattingEnabled = true;
             this.listBox_SaoKe.ItemHeight = 16;
-            this.listBox_SaoKe.Location = new System.Drawing.Point(0, 91);
+            this.listBox_SaoKe.Location = new System.Drawing.Point(0, 123);
             this.listBox_SaoKe.Name = "listBox_SaoKe";
-            this.listBox_SaoKe.Size = new System.Drawing.Size(706, 420);
+            this.listBox_SaoKe.Size = new System.Drawing.Size(706, 388);
             this.listBox_SaoKe.TabIndex = 12;
             // 
             // tabDoiPin
@@ -800,6 +804,24 @@ namespace WinFormsApp1 {
             this.btn_logout.UseVisualStyleBackColor = false;
             this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
+            // comboBox_SaoKe
+            // 
+            this.comboBox_SaoKe.FormattingEnabled = true;
+            this.comboBox_SaoKe.Location = new System.Drawing.Point(55, 63);
+            this.comboBox_SaoKe.Name = "comboBox_SaoKe";
+            this.comboBox_SaoKe.Size = new System.Drawing.Size(372, 30);
+            this.comboBox_SaoKe.TabIndex = 14;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.Maroon;
+            this.label10.Location = new System.Drawing.Point(55, 25);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(138, 22);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "*Chọn tài khoản";
+            // 
             // MainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -824,6 +846,7 @@ namespace WinFormsApp1 {
             this.tabTraCuuSoDu.ResumeLayout(false);
             this.tabTraCuuSoDu.PerformLayout();
             this.tabSaoKe.ResumeLayout(false);
+            this.tabSaoKe.PerformLayout();
             this.tabDoiPin.ResumeLayout(false);
             this.tabDoiPin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -891,5 +914,7 @@ namespace WinFormsApp1 {
         private ListBox listBoxSoTaiKhoan;
         private ListBox listBox_SaoKe;
         private Button btn_logout;
+        private ComboBox comboBox_SaoKe;
+        private Label label10;
     }
 }
