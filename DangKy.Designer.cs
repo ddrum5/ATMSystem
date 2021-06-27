@@ -214,7 +214,7 @@ namespace WinFormsApp1 {
             this.Controls.Add(this.metroSetLabel3);
             this.Controls.Add(this.metroSetLabel1);
             this.Name = "DangKy";
-            this.Text = "DangKy";
+            this.Text = "Đăng Ký";
             this.Load += new System.EventHandler(this.DangKy_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
