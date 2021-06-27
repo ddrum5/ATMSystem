@@ -15,7 +15,9 @@ namespace WinFormsApp1 {
         }
 
         private void DangKy_Load(object sender, EventArgs e) {
+            ActiveControl = inp_hoTen;
             initComboNganHang();
+        
         }
 
         void initComboNganHang() {
@@ -49,7 +51,7 @@ namespace WinFormsApp1 {
                     soTaiKhoan = "99" + random.Next(100, 999);
                 } while (new The().checkSoTaiKhoan(maNganHang, soTaiKhoan));
 
-                bool check = new The().themTaiKhoan(hoTen, sdt, diaChi, maNganHang, pin, soThe, soTaiKhoan);
+                bool check = new The().dangKyThe(hoTen, sdt, diaChi, maNganHang, pin, soThe, soTaiKhoan);
                 if (!check) {
                     Program.ShowMsg("Tạo tài khoản thất bại!", true);
                 } else {
@@ -57,17 +59,22 @@ namespace WinFormsApp1 {
                     MainUI mainUI = new MainUI(maNganHang, soThe, pin);
                     Hide();
                     mainUI.ShowDialog();
-                    Show();
+                    
                 }
-                
 
             }
-
-            
         }
 
         private void btn_Thoat_Click(object sender, EventArgs e) {
             Tool.confirmExit(this);
+        }
+
+        private void sdt_keyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inpMaPin_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
         }
     }
 }

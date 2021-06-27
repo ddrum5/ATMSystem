@@ -16,10 +16,7 @@ namespace WinFormsApp1 {
         public formDangNhap() {
             InitializeComponent();
 
-
         }
-
-
 
         private void Form1_Load(object sender, EventArgs e) {
             ActiveControl = metroSetLabel1;
@@ -65,15 +62,16 @@ namespace WinFormsApp1 {
         }
 
         private void btnThoat_Click(object sender, EventArgs e) {
-
             Tool.confirmExit(this);
-           
-        
-            
         }
-       
-        
 
+        private void inpSoThe_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inpPIN_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
     }
 
 }

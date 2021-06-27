@@ -42,21 +42,27 @@ namespace WinFormsApp1 {
             // 
             this.inpSoThe.Location = new System.Drawing.Point(157, 146);
             this.inpSoThe.Margin = new System.Windows.Forms.Padding(2);
+            this.inpSoThe.MaxLength = 5;
             this.inpSoThe.Name = "inpSoThe";
             this.inpSoThe.Size = new System.Drawing.Size(290, 28);
             this.inpSoThe.TabIndex = 2;
+            this.inpSoThe.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inpSoThe_KeyPress);
             // 
             // inpPIN
             // 
             this.inpPIN.Location = new System.Drawing.Point(157, 186);
             this.inpPIN.Margin = new System.Windows.Forms.Padding(2);
+            this.inpPIN.MaxLength = 3;
             this.inpPIN.Name = "inpPIN";
             this.inpPIN.Size = new System.Drawing.Size(290, 28);
             this.inpPIN.TabIndex = 4;
             this.inpPIN.UseSystemPasswordChar = true;
+            this.inpPIN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inpPIN_KeyPress);
             // 
             // cbTenNganHang
             // 
+            this.cbTenNganHang.BackColor = System.Drawing.SystemColors.Window;
+            this.cbTenNganHang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTenNganHang.FormattingEnabled = true;
             this.cbTenNganHang.Location = new System.Drawing.Point(157, 106);
             this.cbTenNganHang.Name = "cbTenNganHang";
@@ -88,7 +94,7 @@ namespace WinFormsApp1 {
             this.metroSetLabel2.Style = MetroSet_UI.Enums.Style.Light;
             this.metroSetLabel2.StyleManager = null;
             this.metroSetLabel2.TabIndex = 10;
-            this.metroSetLabel2.Text = "Nhập số thẻ hoặc SDT";
+            this.metroSetLabel2.Text = "Số thẻ";
             this.metroSetLabel2.ThemeAuthor = "Narwin";
             this.metroSetLabel2.ThemeName = "MetroLite";
             // 

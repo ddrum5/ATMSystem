@@ -1,6 +1,7 @@
 ﻿using System;
 
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace WinFormsApp1.Ulti {
@@ -47,35 +48,66 @@ namespace WinFormsApp1.Ulti {
             return dialogResult;
         }
 
-
-       public static void confirmExit(Form form) {
+        public static void confirmExit(Form form) {
             DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn thoát không", "Techcombank", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (dr == DialogResult.Yes) {
                 form.Close();
             } else {
                 return;
             }
-
+        }
+        public static DialogResult dialogConfirm(String msg) {
+            DialogResult dr = MessageBox.Show(msg, "Techcombank", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            return dr;    
         }
 
-    public static int DropDownWidth(ComboBox myCombo) {
-        int maxWidth = 0;
-        int temp = 0;
-        Label label1 = new Label();
+        public static int DropDownWidth(ComboBox myCombo) {
+            int maxWidth = 0;
+            int temp = 0;
+            Label label1 = new Label();
 
-        foreach (var obj in myCombo.Items) {
-            label1.Text = obj.ToString();
-            temp = label1.PreferredWidth;
-            if (temp > maxWidth) {
-                maxWidth = temp;
+            foreach (var obj in myCombo.Items) {
+                label1.Text = obj.ToString();
+                temp = label1.PreferredWidth;
+                if (temp > maxWidth) {
+                    maxWidth = temp;
+                }
+            }
+            label1.Dispose();
+            return maxWidth;
+        }
+        public static String getCurrentTime() {
+            return DateTime.Now.ToString("HH:mm:ss tt, dd/MM/yyyy");
+        }
+       public static String formatTien(decimal tien) {
+            return string.Format(new CultureInfo("vi-VN"), "{0:#,0.## VNĐ}", tien);
+        }
+
+        public static void numberOnlyWarnming(TextBox textBox1) {
+            if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^0-9]")) {
+                MessageBox.Show("Please enter only numbers.");
+                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
             }
         }
-        label1.Dispose();
-        return maxWidth;
+        public static void numberOnly(object sender, KeyPressEventArgs e) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.')) {
+                e.Handled = true;
+            }
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) {
+                e.Handled = true;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
     }
-    public static String getCurrentTime() {
-        return DateTime.Now.ToString("HH:mm:ss tt, dd/MM/yyyy");
-    }
-}
 
 }

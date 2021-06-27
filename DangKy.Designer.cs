@@ -33,7 +33,7 @@ namespace WinFormsApp1 {
             this.cbChonNganHang = new System.Windows.Forms.ComboBox();
             this.inpMaPin = new System.Windows.Forms.TextBox();
             this.inp_hoTen = new System.Windows.Forms.TextBox();
-            this.metroSetLabel4 = new MetroSet_UI.Controls.MetroSetLabel();
+            this.lbhoTen = new MetroSet_UI.Controls.MetroSetLabel();
             this.inp_DiaChi = new System.Windows.Forms.TextBox();
             this.metroSetLabel5 = new MetroSet_UI.Controls.MetroSetLabel();
             this.inp_Sdt = new System.Windows.Forms.TextBox();
@@ -80,7 +80,7 @@ namespace WinFormsApp1 {
             // 
             this.metroSetLabel3.Font = new System.Drawing.Font("Arial", 9.980198F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.metroSetLabel3.IsDerivedStyle = true;
-            this.metroSetLabel3.Location = new System.Drawing.Point(174, 379);
+            this.metroSetLabel3.Location = new System.Drawing.Point(174, 396);
             this.metroSetLabel3.Name = "metroSetLabel3";
             this.metroSetLabel3.Size = new System.Drawing.Size(60, 26);
             this.metroSetLabel3.Style = MetroSet_UI.Enums.Style.Light;
@@ -94,7 +94,7 @@ namespace WinFormsApp1 {
             // 
             this.metroSetLabel1.Font = new System.Drawing.Font("Arial", 9.980198F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.metroSetLabel1.IsDerivedStyle = true;
-            this.metroSetLabel1.Location = new System.Drawing.Point(173, 305);
+            this.metroSetLabel1.Location = new System.Drawing.Point(173, 310);
             this.metroSetLabel1.Name = "metroSetLabel1";
             this.metroSetLabel1.Size = new System.Drawing.Size(128, 26);
             this.metroSetLabel1.Style = MetroSet_UI.Enums.Style.Light;
@@ -106,6 +106,7 @@ namespace WinFormsApp1 {
             // 
             // cbChonNganHang
             // 
+            this.cbChonNganHang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbChonNganHang.FormattingEnabled = true;
             this.cbChonNganHang.Location = new System.Drawing.Point(174, 340);
             this.cbChonNganHang.Name = "cbChonNganHang";
@@ -117,37 +118,42 @@ namespace WinFormsApp1 {
             // 
             this.inpMaPin.Location = new System.Drawing.Point(174, 414);
             this.inpMaPin.Margin = new System.Windows.Forms.Padding(2);
+            this.inpMaPin.MaxLength = 3;
             this.inpMaPin.Name = "inpMaPin";
             this.inpMaPin.Size = new System.Drawing.Size(290, 28);
             this.inpMaPin.TabIndex = 15;
+            this.inpMaPin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inpMaPin_KeyPress);
             // 
             // inp_hoTen
             // 
             this.inp_hoTen.Location = new System.Drawing.Point(175, 137);
             this.inp_hoTen.Margin = new System.Windows.Forms.Padding(2);
+            this.inp_hoTen.MaxLength = 100;
             this.inp_hoTen.Name = "inp_hoTen";
             this.inp_hoTen.Size = new System.Drawing.Size(290, 28);
             this.inp_hoTen.TabIndex = 15;
             // 
-            // metroSetLabel4
+            // lbhoTen
             // 
-            this.metroSetLabel4.Font = new System.Drawing.Font("Arial", 9.980198F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.metroSetLabel4.IsDerivedStyle = true;
-            this.metroSetLabel4.Location = new System.Drawing.Point(174, 110);
-            this.metroSetLabel4.Name = "metroSetLabel4";
-            this.metroSetLabel4.Size = new System.Drawing.Size(59, 18);
-            this.metroSetLabel4.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroSetLabel4.StyleManager = null;
-            this.metroSetLabel4.TabIndex = 19;
-            this.metroSetLabel4.Text = "Họ Tên";
-            this.metroSetLabel4.ThemeAuthor = "Narwin";
-            this.metroSetLabel4.ThemeName = "MetroLite";
+            this.lbhoTen.Font = new System.Drawing.Font("Arial", 9.980198F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbhoTen.IsDerivedStyle = true;
+            this.lbhoTen.Location = new System.Drawing.Point(174, 110);
+            this.lbhoTen.Name = "lbhoTen";
+            this.lbhoTen.Size = new System.Drawing.Size(59, 18);
+            this.lbhoTen.Style = MetroSet_UI.Enums.Style.Light;
+            this.lbhoTen.StyleManager = null;
+            this.lbhoTen.TabIndex = 19;
+            this.lbhoTen.Text = "Họ Tên";
+            this.lbhoTen.ThemeAuthor = "Narwin";
+            this.lbhoTen.ThemeName = "MetroLite";
             // 
             // inp_DiaChi
             // 
             this.inp_DiaChi.Location = new System.Drawing.Point(175, 268);
             this.inp_DiaChi.Margin = new System.Windows.Forms.Padding(2);
+            this.inp_DiaChi.MaxLength = 100;
             this.inp_DiaChi.Name = "inp_DiaChi";
+            this.inp_DiaChi.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.inp_DiaChi.Size = new System.Drawing.Size(290, 28);
             this.inp_DiaChi.TabIndex = 15;
             // 
@@ -169,9 +175,11 @@ namespace WinFormsApp1 {
             // 
             this.inp_Sdt.Location = new System.Drawing.Point(175, 201);
             this.inp_Sdt.Margin = new System.Windows.Forms.Padding(2);
+            this.inp_Sdt.MaxLength = 11;
             this.inp_Sdt.Name = "inp_Sdt";
             this.inp_Sdt.Size = new System.Drawing.Size(290, 28);
             this.inp_Sdt.TabIndex = 15;
+            this.inp_Sdt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sdt_keyPress);
             // 
             // metroSetLabel6
             // 
@@ -197,7 +205,7 @@ namespace WinFormsApp1 {
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.metroSetLabel6);
             this.Controls.Add(this.metroSetLabel5);
-            this.Controls.Add(this.metroSetLabel4);
+            this.Controls.Add(this.lbhoTen);
             this.Controls.Add(this.cbChonNganHang);
             this.Controls.Add(this.inp_Sdt);
             this.Controls.Add(this.inp_DiaChi);
@@ -224,7 +232,7 @@ namespace WinFormsApp1 {
         private System.Windows.Forms.ComboBox cbChonNganHang;
         private System.Windows.Forms.TextBox inpMaPin;
         private System.Windows.Forms.TextBox inp_hoTen;
-        private MetroSet_UI.Controls.MetroSetLabel metroSetLabel4;
+        private MetroSet_UI.Controls.MetroSetLabel lbhoTen;
         private System.Windows.Forms.TextBox inp_DiaChi;
         private MetroSet_UI.Controls.MetroSetLabel metroSetLabel5;
         private System.Windows.Forms.TextBox inp_Sdt;

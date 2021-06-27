@@ -15,25 +15,25 @@ namespace WinFormsApp1 {
         private string maNganhang;
         private string soThe;
         private string pin;
-
         The the;
+        List<string> listSoTaiKhoan = new List<string>();
         public MainUI(string maNganhang, string soThe, string pin) {
             InitializeComponent();
             this.maNganhang = maNganhang;
             this.soThe = soThe;
             this.pin = pin;
         }
-
         private void MainUI_Load(object sender, EventArgs e) {
 
             the = new The(soThe, maNganhang);
+            listSoTaiKhoan = the.getListSoTaiKhoan;
             initThongTin();
             initRutTien();
             initTraCuuSoDu();
             initChuyenTien();
             initSaoKe();
+            initNapTien();
         }
-
         private void initChuyenTien() {
             cb_ChuyenTien_ChonTaiKhoanNguon.DataSource = the.getListSoTaiKhoan;
             cb_ChuyenTien_ChonTaiKhoanNguon.SelectedIndex = 0;
@@ -52,72 +52,116 @@ namespace WinFormsApp1 {
             lbTenNganHang.Text = the.TenNganHang;
             lbSoThe.Text = soThe;
             List<String> list = new List<string>();
-            list.AddRange(the.getListSoTaiKhoan);
+            list.AddRange(listSoTaiKhoan);
             list.RemoveAt(0);
             listBoxSoTaiKhoan.DataSource = list;
-
         }
         void initRutTien() {
-            cb_rutTien_taiKhoanNguon.DataSource = the.getListSoTaiKhoan;
+            cb_rutTien_taiKhoanNguon.DataSource = listSoTaiKhoan;
             cb_rutTien_taiKhoanNguon.SelectedIndex = 0;
             cb_rutTien_taiKhoanNguon.DropDownWidth = Tool.DropDownWidth(cb_rutTien_taiKhoanNguon);
         }
+        void initNapTien() {
+            cb_NapTien_TaiKhoanNguon.DataSource = listSoTaiKhoan;
+            cb_NapTien_TaiKhoanNguon.SelectedIndex = 0;
+            cb_NapTien_TaiKhoanNguon.DropDownWidth = Tool.DropDownWidth(cb_NapTien_TaiKhoanNguon);
+        }
         void initTraCuuSoDu() {
-            cb_TraCuuSoDu.DataSource = the.getListSoTaiKhoan;
+            cb_TraCuuSoDu.DataSource = listSoTaiKhoan;
             cb_TraCuuSoDu.SelectedIndex = 0;
             cb_TraCuuSoDu.DropDownWidth = Tool.DropDownWidth(cb_TraCuuSoDu);
         }
         void initSaoKe() {
-            comboBox_SaoKe.DataSource = the.getListSoTaiKhoan;
+            comboBox_SaoKe.DataSource = listSoTaiKhoan;
             comboBox_SaoKe.SelectedIndex = 0;
             comboBox_SaoKe.DropDownWidth = Tool.DropDownWidth(comboBox_SaoKe);
         }
-
-
-
         private void btn_RutTien_Click(object sender, EventArgs e) {
+            if (cb_rutTien_taiKhoanNguon.SelectedIndex == 0 || inp_rutTien_soTienRut.Text == "") {
+                showMsg();
+                return;
+            }
             decimal soTienRut = Decimal.Parse(inp_rutTien_soTienRut.Text);
             String soTaiKhoan = cb_rutTien_taiKhoanNguon.SelectedItem.ToString();
-            if (the.rutTien(soTaiKhoan, maNganhang, soTienRut)) {
-                if (checkBox_RutTien_inHoaDon.Checked) {
-
-                    Program.ShowMsg("Đã rút: " + formatTien(soTienRut) + "\n" +
-                        "số dư: " + formatTien(the.tienTrongTK(soTaiKhoan)) + "\n" +
-                        "Vào lúc: " + getCurrentTime());
-                } else {
-                    Program.ShowMsg("Rút tiền thành công");
-                }
+            if (soTienRut > the.tienTrongTK(soTaiKhoan)) {
+                showMsg("Không đủ số dư");
             } else {
-                Program.ShowMsg("Không đủ số dư");
+                if (the.rutTien(soTaiKhoan, maNganhang, soTienRut) && the.themGiaoDich('r', soTaiKhoan, soTienRut)) {
+                    DialogResult dr = Tool.dialogConfirm("Bạn có chắc chắn muốn rút tiền không");
+                    if (dr == DialogResult.No) {
+                        return;
+                    } else {
+                        if (checkBox_RutTien_inHoaDon.Checked) {
+                            Program.ShowMsg("Đã rút: " + formatTien(soTienRut) + "\n" +
+                                "số dư: " + formatTien(the.tienTrongTK(soTaiKhoan)) + "\n" +
+                                "Vào lúc: " + getCurrentTime());
+                        } else {
+                            Program.ShowMsg("Rút tiền thành công");
+                        }
 
+                        inp_rutTien_soTienRut.Text = "";
+                        cb_rutTien_taiKhoanNguon.SelectedIndex = 0;
+                    }
+
+                    
+
+                } else {
+                    showMsg("Lỗi hệ thống");
+                }
             }
 
         }
-        private void btn_TraCuuSoDu_Click(object sender, EventArgs e) {
-            String soTaiKhoan = cb_TraCuuSoDu.GetItemText(cb_TraCuuSoDu.SelectedItem);
-            lb_TraCuu.Text = formatTien(the.tienTrongTK(soTaiKhoan));
-        }
+        
+        private void btn_NapTien_Click(object sender, EventArgs e) {
+            if (cb_NapTien_TaiKhoanNguon.SelectedIndex == 0 || inp_NapTien_SoTienNap.Text == "") {
+                showMsg();
+                return;
+            }
+            decimal soTienNap = Decimal.Parse(inp_NapTien_SoTienNap.Text);
+            String soTaiKhoan = cb_NapTien_TaiKhoanNguon.SelectedItem.ToString();
+            if (the.napTien(soTaiKhoan, maNganhang, soTienNap) && the.themGiaoDich('n', soTaiKhoan, soTienNap)) {
+                DialogResult dr = Tool.dialogConfirm("Bạn có chắc chắn muốn nạp tiền không");
+                if (dr == DialogResult.No) {
+                    return;
+                } else {
+                    if (checkBox_NapTiep_InHoaDon.Checked) {
+                        Program.ShowMsg("Đã nạp: " + formatTien(soTienNap) + "\n" +
+                            "số dư: " + formatTien(the.tienTrongTK(soTaiKhoan)) + "\n" +
+                            "Vào lúc: " + getCurrentTime());
+                    } else {
+                        Program.ShowMsg("Nạp tiền thành công");
+                    }
+                    inp_NapTien_SoTienNap.Text = "";
+                    cb_NapTien_TaiKhoanNguon.SelectedIndex = 0;
+                }
 
-        private void btn_ChuyenTien_Click(object sender, EventArgs e) {
-
-            if (inp_chuyenTien_soTien.Text == "" || inp_ChuyenTien_SoTaiKhoan.Text == ""
-                || cb_ChuyenTien_ChonTaiKhoanNguon.SelectedItem == null || cb_ChuyenTien_ChonTenNganHang == null) {
-                Program.ShowMsg("Vui lòng điền đầy đủ thông tin");
-                cb_ChuyenTien_ChonTenNganHang.Focus();
             } else {
-                String soTaiKhoanDich = inp_ChuyenTien_SoTaiKhoan.Text;
-                String soTaiKhoanNguon = cb_ChuyenTien_ChonTaiKhoanNguon.Text;
-                String maNganHangDich = cb_ChuyenTien_ChonTenNganHang.SelectedValue.ToString();
-                String maNgnhangNguon = this.maNganhang;
-                String moTa = inp_chuyenTien_MoTa.Text;
-                decimal soTien = Decimal.Parse(inp_chuyenTien_soTien.Text);
+                Program.ShowMsg("Lỗi hệ thống");
+            }
+        }
+        private void btn_ChuyenTien_Click(object sender, EventArgs e) {
+            if (cb_ChuyenTien_ChonTenNganHang.SelectedIndex == 0 || cb_ChuyenTien_ChonTaiKhoanNguon.SelectedIndex == 0
+                || inp_chuyenTien_soTien.Text == "" || inp_ChuyenTien_SoTaiKhoan.Text == "") {
+                showMsg();
+                return;
+            }
+            String soTaiKhoanDich = inp_ChuyenTien_SoTaiKhoan.Text;
+            String soTaiKhoanNguon = cb_ChuyenTien_ChonTaiKhoanNguon.Text;
+            String maNganHangDich = cb_ChuyenTien_ChonTenNganHang.SelectedValue.ToString();
+            String maNgnhangNguon = this.maNganhang;
+            String moTa = inp_chuyenTien_MoTa.Text;
+            decimal soTien = Decimal.Parse(inp_chuyenTien_soTien.Text);
 
-                if (the.tienTrongTK(soTaiKhoanNguon) < soTien) {
-                    showMsg("Không đủ số dư");
-                } else if (the.getIdTaiKhoan(soTaiKhoanDich, maNganHangDich) == 0) {
-                    showMsg("Không tìm thấy tài khoản đích");
-                } else if (!the.chuyenTien(maNgnhangNguon, soTaiKhoanNguon, maNganHangDich, soTaiKhoanDich, soTien, moTa)) {
-                    showMsg("Chuyển tiền thất bại", true);
+            if (the.tienTrongTK(soTaiKhoanNguon) < soTien) {
+                showMsg("Không đủ số dư");
+            } else if (the.getIdTaiKhoan(soTaiKhoanDich, maNganHangDich) == 0) {
+                showMsg("Không tìm thấy tài khoản đích");
+            } else if (!the.chuyenTien(maNgnhangNguon, soTaiKhoanNguon, maNganHangDich, soTaiKhoanDich, soTien, moTa)) {
+                showMsg("Chuyển tiền thất bại", true);
+            } else {
+                DialogResult dr = Tool.dialogConfirm("Bạn có chắc chắn muốn nạp tiền không");
+                if (dr == DialogResult.No) {
+                    return;
                 } else {
                     if (!checkBox_ChuyenTien_InHoaDon.Checked) {
                         showMsg("Chuyển tiền thành công!");
@@ -127,11 +171,22 @@ namespace WinFormsApp1 {
                                "Vào lúc: " + getCurrentTime() + "\n" +
                                "số dư: " + formatTien(the.tienTrongTK(soTaiKhoanNguon)));
                     }
+                    inp_ChuyenTien_SoTaiKhoan.Text = "";
+                    inp_chuyenTien_soTien.Text = "";
+                    inp_chuyenTien_MoTa.Text = "";
+                    cb_ChuyenTien_ChonTaiKhoanNguon.SelectedIndex = 0;
+                    cb_ChuyenTien_ChonTenNganHang.SelectedIndex = 0;
                 }
-
             }
         }
-   
+        private void btn_TraCuuSoDu_Click(object sender, EventArgs e) {
+            if (cb_TraCuuSoDu.SelectedIndex == 0) {
+                showMsg("Bạn chưa chọn tài khoản!");
+                return;
+            }
+            String soTaiKhoan = cb_TraCuuSoDu.GetItemText(cb_TraCuuSoDu.SelectedItem);
+            lb_TraCuu.Text = formatTien(the.tienTrongTK(soTaiKhoan));
+        }
         private void btnSaoKe_Click(object sender, EventArgs e) {
             if (comboBox_SaoKe.SelectedIndex == 0) {
                 showMsg("Bạn chưa chọn tài khoản!");
@@ -140,26 +195,7 @@ namespace WinFormsApp1 {
             String soTaiKhoan = comboBox_SaoKe.SelectedItem.ToString();
             listBox_SaoKe.DataSource = the.danhSachGiaoDich(soTaiKhoan, maNganhang);
         }
-
-        private void inp_rutTien_soTienRut_Leave(object sender, EventArgs e) {
-
-        }
-
-        private void inp_rutTien_soTienRut_KeyPress(object sender, KeyPressEventArgs e) {
-
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-             (e.KeyChar != '.')) {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1)) {
-                e.Handled = true;
-            }
-
-        }
         private void btn_DoiPin_Click(object sender, EventArgs e) {
-
             if (inp_pinCu.Text == "" || inp_pinMoi.Text == "" || inp_XacNhanPinMoi.Text == "") {
                 showMsg();
                 return;
@@ -180,22 +216,49 @@ namespace WinFormsApp1 {
                     inp_XacNhanPinMoi.Text = "";
                     inp_pinCu.Text = "";
                     inp_pinMoi.Text = "";
+
+                    inp_pinCu.Text = "";
+                    inp_XacNhanPinMoi.Text = "";
+                    inp_pinMoi.Text = "";
                 }
             }
-
         }
+        private void btn_MoThemTaiKhoan_Click(object sender, EventArgs e) {
+            DialogResult dr = Tool.dialogConfirm("Bạn có chắc chắn muốn mở  tài khoản?");
+            String soTaiKhoan;
+            if (dr == DialogResult.No) {
+                return;
+            } else {
+                do {
+                    soTaiKhoan = "99" + new Random().Next(100, 999);
+                } while (new The().checkSoTaiKhoan(maNganhang, soTaiKhoan));
+                if (!the.themTaiKhoan(soTaiKhoan)) {
+                    showMsg("Lỗi hệ thống !", true);
+                } else {
+                    refreshList(the.updateListSoTaiKhoan());
 
+                    showMsg("Mở thành công!\n" +
+                        "Tài khoản số: " + soTaiKhoan);
+                }
+            }
+        }
+        public void refreshList(List<string> list) {
+            cb_ChuyenTien_ChonTaiKhoanNguon.DataSource = list;
+            cb_NapTien_TaiKhoanNguon.DataSource = list;
+            cb_rutTien_taiKhoanNguon.DataSource = list;
+            cb_TraCuuSoDu.DataSource = list;
+            comboBox_SaoKe.DataSource = list;
+            listBoxSoTaiKhoan.DataSource = list;
+        }
         String formatTien(decimal tien) {
             return string.Format(new CultureInfo("vi-VN"), "{0:#,0.## VNĐ}", tien);
         }
         String getCurrentTime() {
             return DateTime.Now.ToString("HH:mm:ss tt, dd/MM/yyyy");
         }
-
         private void btn_logout_Click(object sender, EventArgs e) {
             Tool.confirmExit(this);
         }
-
         private void btn_100_Click(object sender, EventArgs e) {
             inp_rutTien_soTienRut.Text = "100,000";
 
@@ -232,6 +295,36 @@ namespace WinFormsApp1 {
             MessageBox.Show(msg, "Techcombank ATM", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-       
+        private void inp_rutTien_soTienRut_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inp_pinCu_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inp_NapTien_SoTienNap_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inp_ChuyenTien_SoTaiKhoan_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inp_chuyenTien_soTien_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inp_pinMoi_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void inp_XacNhanPinMoi_KeyPress(object sender, KeyPressEventArgs e) {
+            Tool.numberOnly(sender, e);
+        }
+
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e) {
+            cb_NapTien_TaiKhoanNguon.SelectedIndex = 0;
+        }
     }
 }
